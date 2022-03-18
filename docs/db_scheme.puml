@@ -23,14 +23,16 @@ entity message {
   __
   * **date**  :  datetime
   __
-  * **chat**  :  id
+  * **chat**  :  int
   __
-  * **user**  :  id
+  * **user**  :  int
 
 }
 
 entity chat {
   * **id**  :  int
+  __
+  * **title**  :  varchar
   __
   * **info**  :  varchar
   __

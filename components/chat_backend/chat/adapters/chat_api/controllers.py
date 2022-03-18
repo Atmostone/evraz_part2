@@ -1,15 +1,7 @@
-from classic.app import validate_with_dto
 from classic.components import component
-from classic.http_auth import (
-    authenticate,
-    authenticator_needed,
-    authorize,
-)
 
-from .auth import Groups, Permissions
 from .join_points import join_point
 from ...application import services
-from ...application.services import UserInfo
 
 
 @component
@@ -24,7 +16,6 @@ class User:
             'username': user.username,
             'password': user.password,
         }
-
 
     @join_point
     def on_post_add_user(self, request, response):
@@ -51,3 +42,14 @@ class Chat:
         self.chat.add_chat(
             **request.media,
         )
+        response.media = {
+            'message': 'Чат был создан'
+        }
+
+    @join_point
+    def on_patch_modify_chat(self, request, response):
+        self.chat.modify_chat(**request.media)
+        response.media = {
+            'message': 'Чат был изменён'
+        }
+

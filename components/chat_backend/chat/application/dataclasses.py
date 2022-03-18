@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import Optional
 
 import attr
 
@@ -13,6 +13,7 @@ class User:
 @attr.dataclass
 class Chat:
     info: str
+    title: str
     owner: int
     id: Optional[int] = None
 

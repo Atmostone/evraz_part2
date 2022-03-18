@@ -30,6 +30,7 @@ chat = Table(
     'chat',
     metadata,
     Column('id', Integer, primary_key=True),
+    Column('title', String, nullable=True),
     Column('info', String, nullable=True),
     Column('owner', ForeignKey('user.id'), nullable=False),
 )

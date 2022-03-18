@@ -3,7 +3,7 @@ from typing import Optional
 from classic.app import DTO, validate_with_dto
 from classic.aspects import PointCut
 from classic.components import component
-from pydantic import validate_arguments, conint
+from pydantic import validate_arguments
 
 from components.chat_backend.chat.application import interfaces, dataclasses
 
@@ -21,6 +21,14 @@ class ChatInfo(DTO):
     id: Optional[int]
     info: str
     owner: int
+    title: str
+
+
+class ChatInfoForChange(DTO):
+    id: int
+    info: str = None
+    owner: int = None
+    title: str = None
 
 
 @component
@@ -57,8 +65,15 @@ class Chat:
     @join_point
     @validate_with_dto
     def add_chat(self, chat_info: ChatInfo):
-        print(1)
         chat = chat_info.create_obj(dataclasses.Chat)
-        print(2)
         self.chats_repo.add(chat)
-        print(3)
+
+    @join_point
+    @validate_with_dto
+    def modify_chat(self, chat_info: ChatInfoForChange):
+        id = chat_info.id
+        try:
+            chat = self.chats_repo.get_by_id(id)
+        except TypeError:
+            raise Exception
+        chat_info.populate_obj(chat)

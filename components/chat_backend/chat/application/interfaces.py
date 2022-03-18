@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
-from typing import List, Optional
+from typing import Optional
 
-from .dataclasses import User, Chat, ChatUser, Message
+from .dataclasses import User, Chat
 
 
 class UsersRepo(ABC):
