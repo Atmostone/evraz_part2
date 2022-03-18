@@ -1,41 +1,47 @@
 @startuml
 
-header Демо проект
 title Диаграмма прецедентов
 
 left to right direction
 
-rectangle "Оформление заказа" {
-  usecase "Посмотреть корзину" as show_cart
-  usecase "Добавить товар в корзину" as add_to_cart
-  usecase "Удалить товар из корзины" as remove_from_cart
-  usecase "Сделать заказ" as register_order
-}
 
-rectangle "Каталог" {
-  usecase "Посмотреть товар" as show_product
-  usecase "Найти товары по названию или описанию" as search_products
-}
+  usecase "Логин" as login
+  usecase "Регистрация" as register
 
-rectangle "Заказы" {
-  usecase "Посмотреть заказ" as show_order
-}
+  usecase "Создать чат" as create_chat
+  usecase "Войти в чат" as join_chat
+  usecase "Выйти из чата" as leave_chat
+  usecase "Обновить чат" as update_chat
+  usecase "Удалить чат" as delete_chat
+  usecase "Получить информацию о пользователях чата" as get_users
 
-rectangle "Клиенты" {
-  usecase "Посмотреть инфу покупателя" as show_customer
-}
+  usecase "Добавить пользователя" as add_user
 
-actor "Покупатель" as сlient
-сlient -- show_cart
-сlient -- add_to_cart
-сlient -- remove_from_cart
-сlient -- register_order
-сlient -- show_product
-сlient -- search_products
-сlient -- show_order
+  usecase "Написать сообщение" as write_message
+  usecase "Получить сообщения чата" as read_messages
 
 
-actor "Администратор" as admin
-admin -- show_customer
+actor "Гость" as guest
+guest -- login
+guest -- register
+
+actor "Пользователь" as user
+user -- create_chat
+user -- join_chat
+
+actor "Пользователь чата" as chat_user
+chat_user -- get_users
+chat_user -- write_message
+chat_user -- read_messages
+chat_user -- leave_chat
+
+
+actor "Создатель чата" as creator
+creator -- update_chat
+creator -- delete_chat
+creator -- add_user
+
+chat_user <-- creator
+user <-- chat_user
 
 @enduml

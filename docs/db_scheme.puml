@@ -1,66 +1,56 @@
 @startuml
 
-header Демо проект
 title Схема БД
 
 hide circle
-skinparam linetype ortho
 
 
-entity customers {
+
+entity user {
   * **id**  :  int
   __
-  **email**  :  varchar
+  * **username**  :  varchar
+  --
+  * **password**  :  varchar
 }
 
-entity products {
-  * **sku**  :  varchar
-  __
-  * **title**  :  varchar
-  --
-  * **description**  :  varchar
-  --
-  * **price**  :  float
-}
 
-entity carts {
+
+entity message {
   * **id**  :  int
   __
-  * **customer_id**  :  int
+  * **text**  :  varchar
+  __
+  * **date**  :  datetime
+  __
+  * **chat**  :  id
+  __
+  * **user**  :  id
+
 }
 
-entity cart_positions {
+entity chat {
   * **id**  :  int
   __
-  * **product_sku**  :  varchar
-  --
-  * **cart_id**  :  int
-  --
-  * **quantity**  :  int
-}
-
-entity orders {
-  * **number**  :  int
+  * **info**  :  varchar
   __
-  * **customer_id**  :  int
+  * **owner**  :  int
 }
 
-entity order_lines {
-  * **order_number**  :  int
+
+entity chat_user {
+  * **id**  :  int
   __
-  * **product_sku**  :  varchar
-  --
-  * **product_title**  :  varchar
-  --
-  * **price**  :  float
-  --
-  * **quantity**  :  int
+  * **user**  :  int
+  __
+  * **chat**  :  int
 }
 
-order_lines }o--o| orders
-orders }o--|| customers
-cart_positions }o--|| products
-cart_positions }o--|| carts
-carts }o--|| customers
+chat }o--|| message
+user }o--|| message
+user }o--|| chat_user
+chat }o--|| chat_user
+user }o--|| chat
+
 
 @enduml

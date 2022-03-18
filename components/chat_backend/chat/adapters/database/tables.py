@@ -1,6 +1,5 @@
 from sqlalchemy import (
     Column,
-    Float,
     ForeignKey,
     Integer,
     MetaData,
@@ -20,11 +19,11 @@ naming_convention = {
 metadata = MetaData(naming_convention=naming_convention)
 
 user = Table(
-    'users',
+    'user',
     metadata,
     Column('id', Integer, primary_key=True),
     Column('username', String, nullable=False),
-    Column('password', String, nullable=False)
+    Column('password', String, nullable=False),
 )
 
 chat = Table(
@@ -32,23 +31,23 @@ chat = Table(
     metadata,
     Column('id', Integer, primary_key=True),
     Column('info', String, nullable=True),
-    Column('owner', ForeignKey('User'), nullable=False)
+    Column('owner', ForeignKey('user.id'), nullable=False),
 )
 
 chat_user = Table(
-    'chat',
+    'chat_user',
     metadata,
     Column('id', Integer, primary_key=True),
     Column('info', String, nullable=True),
-    Column('owner', ForeignKey('User'), nullable=False)
+    Column('owner', ForeignKey('user.id'), nullable=False),
 )
 
 message = Table(
-    'chat',
+    'message',
     metadata,
     Column('id', Integer, primary_key=True),
     Column('text', String, nullable=True),
-    Column('chat', ForeignKey('Chat'), nullable=False),
-    Column('user', ForeignKey('User'), nullable=False),
+    Column('chat', ForeignKey('chat.id'), nullable=False),
+    Column('user', ForeignKey('user.id'), nullable=False),
     Column('datetime', DateTime, nullable=False),
 )

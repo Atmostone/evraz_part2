@@ -24,23 +24,23 @@ class ChatsRepo(ABC):
         ...
 
 
-class ChatUsersRepo(ABC):
-
-    @abstractmethod
-    def get_by_id(self, id_: int) -> Optional[ChatUser]:
-        ...
-
-    @abstractmethod
-    def add(self, chat_user: ChatUser):
-        ...
-
-
-class MessagesRepo(ABC):
-
-    @abstractmethod
-    def get_by_id(self, id_: int) -> Optional[Message]:
-        ...
-
-    @abstractmethod
-    def add(self, message: Message):
-        ...
+# class ChatUsersRepo(ABC):
+#
+#     @abstractmethod
+#     def get_by_id(self, id_: int) -> Optional[ChatUser]:
+#         ...
+#
+#     @abstractmethod
+#     def add(self, chat_user: ChatUser):
+#         ...
+#
+#
+# class MessagesRepo(ABC):
+#
+#     @abstractmethod
+#     def get_by_id(self, id_: int) -> Optional[Message]:
+#         ...
+#
+#     @abstractmethod
+#     def add(self, message: Message):
+#         ...

@@ -5,16 +5,16 @@ import attr
 
 @attr.dataclass
 class User:
-    id: int
     username: str
     password: str
+    id: Optional[int] = None
 
 
 @attr.dataclass
 class Chat:
-    id: int
     info: str
-    creator: int
+    owner: int
+    id: Optional[int] = None
 
 
 @attr.dataclass
