@@ -16,6 +16,7 @@ class UsersRepo(BaseRepository, UsersRepo):
 
     def get_by_login(self, username: str, password: str) -> Optional[User]:
         query = select(User).where(and_(User.username == username, User.password == password))
+        print('!!!!!!!!!!', self.session.execute(query).scalars().one_or_none())
         return self.session.execute(query).scalars().one_or_none()
 
     def add(self, user: User):

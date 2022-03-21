@@ -58,6 +58,7 @@ class User:
     def add_user(self, user_info: UserInfo):
         user = user_info.create_obj(dataclasses.User)
         self.users_repo.add(user)
+        return user
 
 
 @component
@@ -106,8 +107,9 @@ class Chat:
     @validate_arguments
     def add_chat(self, owner, title, info):
         chat = ChatInfo(owner=owner, title=title, info=info).create_obj(dataclasses.Chat)
-        self.chats_repo.add(chat)
+        new_chat = self.chats_repo.add(chat)
         self.chat_user_repo.add(ChatUser(chat=chat.id, user=chat.owner))
+        return new_chat
 
     @join_point
     @validate_arguments
@@ -123,6 +125,7 @@ class Chat:
                 raise DoesNotExists
             chat_info = ChatInfo(id=id, title=title, info=info, owner=owner)
             chat_info.populate_obj(chat)
+            return chat
 
     @join_point
     @validate_arguments
@@ -146,6 +149,7 @@ class Chat:
         except Exception:
             new_row = ChatUserInfo(chat=chat_id, user=user_id).create_obj(ChatUser)
             self.chat_user_repo.add(new_row)
+            return new_row
 
     @join_point
     @validate_arguments
@@ -181,6 +185,7 @@ class Message:
             message = MessageInfo(user=token, chat=chat_id, text=text, datetime=datetime.now()).create_obj(
                 dataclasses.Message)
             self.message_repo.add(message)
+            return message
 
     @join_point
     @validate_arguments

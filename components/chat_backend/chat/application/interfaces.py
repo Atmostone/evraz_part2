@@ -30,7 +30,9 @@ class ChatsRepo(ABC):
     @abstractmethod
     def delete(self, chat: Chat):
         ...
-
+    @abstractmethod
+    def get_info(self, token, chat_id):
+        ...
 
 class ChatUsersRepo(ABC):
     @abstractmethod

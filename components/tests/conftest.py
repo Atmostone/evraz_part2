@@ -36,8 +36,10 @@ def user():
 @pytest.fixture(scope='function')
 def chats_repo(chat):
     chats_repo = Mock(interfaces.ChatsRepo)
-    chats_repo.add = Mock(return_value=chat)
+    chats_repo.add_chat = Mock(return_value=chat)
     chats_repo.get_by_id = Mock(return_value=chat)
+    chats_repo.modify_chat = Mock(return_value=chat)
+    chats_repo.delete_chat = Mock(return_value=chat)
 
     return chats_repo
 
@@ -46,6 +48,7 @@ def chats_repo(chat):
 def chat_user_repo(chat_user):
     chat_user_repo = Mock(interfaces.ChatUsersRepo)
     chat_user_repo.get_by_id = Mock(return_value=chat_user)
+    chat_user_repo.get_users = Mock(return_value=chat_user)
     return chat_user_repo
 
 
@@ -56,7 +59,8 @@ def message_repo(chat):
 
 
 @pytest.fixture(scope='function')
-def user_repo(user):
-    user_repo = Mock(interfaces.UsersRepo)
-    chat_user_repo.add = Mock(return_value=user)
-    return user_repo
+def users_repo(user):
+    users_repo = Mock(interfaces.UsersRepo)
+    users_repo.login = Mock(return_value=user)
+    users_repo.add_user = Mock(return_value=user)
+    return users_repo
