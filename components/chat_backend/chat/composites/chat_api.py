@@ -25,11 +25,14 @@ class DB:
 
     users_repo = repositories.UsersRepo(context=context)
     chats_repo = repositories.ChatsRepo(context=context)
+    chat_user_repo = repositories.ChatUsersRepo(context=context)
+    message_repo = repositories.MessageRepo(context=context)
 
 
 class Application:
     user = services.User(users_repo=DB.users_repo)
-    chat = services.Chat(chats_repo=DB.chats_repo)
+    chat = services.Chat(chats_repo=DB.chats_repo, chat_user_repo=DB.chat_user_repo)
+    message = services.Message(message_repo=DB.message_repo, chats_repo=DB.chats_repo, chat_user_repo=DB.chat_user_repo)
 
     is_dev_mode = Settings.shop_api.IS_DEV_MODE
     allow_origins = Settings.shop_api.ALLOW_ORIGINS
@@ -45,6 +48,7 @@ app = chat_api.create_app(
     allow_origins=Application.allow_origins,
     user=Application.user,
     chat=Application.chat,
+    message=Application.message,
 )
 
 with make_server('', 8000, app) as server:

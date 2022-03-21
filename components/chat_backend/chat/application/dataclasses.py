@@ -1,6 +1,7 @@
 from typing import Optional
 
 import attr
+from sqlalchemy import DateTime
 
 
 @attr.dataclass
@@ -20,14 +21,15 @@ class Chat:
 
 @attr.dataclass
 class ChatUser:
-    id: int
     user: int
     chat: int
+    id: Optional[int] = None
 
 
 @attr.dataclass
 class Message:
-    id: int
     user: int
     chat: int
     text: str
+    datetime: DateTime
+    id: Optional[int] = None

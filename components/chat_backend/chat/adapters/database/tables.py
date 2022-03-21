@@ -22,7 +22,7 @@ user = Table(
     'user',
     metadata,
     Column('id', Integer, primary_key=True),
-    Column('username', String, nullable=False),
+    Column('username', String, nullable=False, unique=True),
     Column('password', String, nullable=False),
 )
 
@@ -39,8 +39,8 @@ chat_user = Table(
     'chat_user',
     metadata,
     Column('id', Integer, primary_key=True),
-    Column('info', String, nullable=True),
-    Column('owner', ForeignKey('user.id'), nullable=False),
+    Column('user', ForeignKey('user.id'), nullable=False),
+    Column('chat', ForeignKey('chat.id'), nullable=False),
 )
 
 message = Table(

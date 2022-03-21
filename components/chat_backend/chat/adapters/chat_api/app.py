@@ -15,6 +15,7 @@ def create_app(
         allow_origins: Union[str, Tuple[str, ...]],
         user: services.User,
         chat: services.Chat,
+        message: services.Message,
 
 ) -> App:
     authenticator = Authenticator(app_groups=auth.ALL_GROUPS)
@@ -32,5 +33,6 @@ def create_app(
 
     app.register(controllers.User(user=user))
     app.register(controllers.Chat(chat=chat))
+    app.register(controllers.Message(message=message))
 
     return app
